@@ -2,36 +2,41 @@
 #include <stdlib.h>
 #include <time.h>
 
-int main(void)
-{
-    int secret, guess, tries = 0;
+#define MAX_ATTEMPTS 5
 
-    srand(time(NULL));         
-    secret = rand() % 100 + 1; 
+int main() {
+    int secretNumber, guess, attempts = 0;
 
-    printf("\nGuess the number (1-100)\n You have 5 tries");
+    srand(time(0));
 
-    while (tries < 5)
-    {         
-        printf("Try %d: ", tries + 1);
-        scanf("%d", &guess);    
+    secretNumber = (rand() % 100) + 1;
 
-        if (guess == secret)
-            {
-                printf("\nYou have guessed correct");
-                return 0;
-            }
-        else if (guess < secret)
-            {
-                printf("\nToo low");
-            }
-        else
-            {
-                printf("\nToo high");
-            }
-        tries++;
+    printf("I'm thinking of a number between 1 and 100.\n");
+    printf("You have %d attempts to guess it.\n\n", MAX_ATTEMPTS);
+
+    while (attempts < MAX_ATTEMPTS) {
+        printf("Attempt %d: Enter your guess: ", attempts + 1);
+        scanf("%d", &guess);
+
+        if (guess < 1 || guess > 100) {
+            printf("Please enter a number between 1 and 100.\n");
+            continue; 
+        }
+
+        attempts++;
+
+        if (guess == secretNumber) {
+            printf(" Correct! You guessed the number in %d attempt(s)!\n", attempts);
+            break;
+        } else {
+            printf("correct guess.\n");
+        }
+
+        if (attempts == MAX_ATTEMPTS) {
+            printf("\n Game Over! You've used all your attempts.\n");
+            printf("The correct number was: %d\n", secretNumber);
+        }
     }
 
-    printf("\nOut of tries \nNumber was %d", secret);
     return 0;
 }
