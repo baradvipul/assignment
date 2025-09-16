@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+// Recursive function to calculate nCr
+int nCr(int n, int r) {
+    if (r == 0 || r == n)
+        return 1;
+    return nCr(n - 1, r - 1) + nCr(n - 1, r);
+}
+
+int main() {
+    int n;
+    printf("Enter number of rows: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        // Print spaces for alignment
+        for (int space = 0; space < n - i - 1; space++)
+            printf("  ");
+
+        for (int j = 0; j <= i; j++) {
+            printf("%4d", nCr(i, j));
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
